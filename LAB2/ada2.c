@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <time.h>
 int linsrch(int a[], int n, int el)
 {
     if(n>=0)
@@ -37,41 +37,41 @@ int binsrch(int arr[], int l, int h, int x)
 }
 int main()
 {
-	int arr[20],ch,ele,pos,pos1,i,j;
-	printf("Creating array of 20 random numbers from range[1,100]\n");
-	for(j=0;j<=19;j++)
+	 clock_t lstart,lend,bstart,bend;
+    double btimetaken,ltimetaken;
+	int rand(void);
+	int ele,pos,pos1,i,j,n;
+	printf("enter the number of elements\n");
+	scanf("%d",&n);
+	int arr[n];
+	printf("Creating array of  random numbers from range[1,1000]\n");
+	for(j=0;j<=n-1;j++)
 	{
-		arr[j]=rand() % 100 + 1;
+		arr[j]=rand() % 1000 + 1;
 	}
 	printf("Printing the numbers...\n");
-	for(j=0;j<=19;j++)
+	for(j=0;j<=n-1;j++)
 	{
-		printf("%d\n",arr[j]);
+		printf("%d\t",arr[j]);
 	}
-	do
-	{
-		printf("Performing linear search(1) and binary search(2), 3-Exit\nEnter option\n");
-		scanf("%d",&ch);
-		switch(ch)
-		{
-			case 1:
-			printf("enter the number to be searched[1-100]\n");
+		printf("Performing linear search\n");
+			printf("enter the number to be searched[1-1000]\n");
 			scanf("%d",&ele);
-			pos=linsrch(arr,20,ele);
+			lstart=clock();
+			pos=linsrch(arr,n,ele);
+			lend=clock();
 			if((pos)==-1)
 			printf("Element not found!\n");
 			else printf("element found at %d position \n",pos);
-			break;
-			
-			case 2:
+		printf("Performing binary search\n");
 			printf("enter the number to be searched[1-100]\n");
 			scanf("%d",&ele);
 			int min,temp;
 	        printf("Sorting the array to perform binary search\n");
-        	for (i = 0; i < 19; i++) 
+        	for (i = 0; i < n-1; i++) 
             { 
                 min = i; 
-                for (j = i+1; j < 20; j++) 
+                for (j = i+1; j < n; j++) 
                 {
         			if (arr[j] < arr[min]) 
         				min = j;
@@ -82,22 +82,22 @@ int main()
                 arr[min] = temp;
             } 
         	printf("Array has been sorted as...\n");
-        	for (i = 0; i <= 19; i++) 
+        	for (i = 0; i <= n-1; i++) 
             { 
-        		printf("%d\n",arr[i]);
+        		printf("%d\t",arr[i]);
         	}
-			pos1=binsrch(arr,0,19,ele);
+        	bstart=clock();
+			pos1=binsrch(arr,0,n-1,ele);
+			bend=clock();
 			if((pos1)==-1)
 			printf("Element not found!\n");
 			else printf("element found at %d index \n",pos1);
-			break;
 			
-			case 3:
-			break;
+			ltimetaken=((double)(lend-lstart))/CLOCKS_PER_SEC;
+			printf("\ntime taken linear search = %f\n",ltimetaken);
+			btimetaken=((double)(bend-bstart))/CLOCKS_PER_SEC;
+			printf("\ntime taken binary search = %f\n",btimetaken);
 			
-			default:
-			printf("Wrong choice!\n");
-		}
-	}while(ch!=3);
 	return 0;
 }
+
