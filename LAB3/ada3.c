@@ -1,17 +1,25 @@
 #include <stdio.h>
+#include <time.h>
 
-int main()
-{
-    int i,j,min,n,temp;
-    printf("Enter the number of elements\n");
-    scanf("%d",&n);
+
+int main(){
+    clock_t start,end;
+    double timetaken;
+	int rand(void);
+    
+    int  n,temp,min,i,j;
+    printf("SELECTION SORT\n");
+    printf("Enter the total elements ");
+    scanf("%d", &n);
     int arr[n];
-    printf("Enter the array\n");
-    for(i=0;i<n;i++)
+    printf("Generating array elements\n");
+    for (i = 0; i < n; i++)
     {
-        scanf("%d",&arr[i]);
+        arr[i]=rand() % 1000 + 1;
+        printf("%d\t",arr[i]);
     }
-    printf("Sorting the array using selection sort\n");
+    start=clock();
+    
     for (i = 0; i < n-1; i++) 
     { 
         min = i; 
@@ -25,11 +33,17 @@ int main()
         arr[i] = arr[min];
         arr[min] = temp;
     } 
-    printf("Array has been sorted as...\n");
-    for (i = 0; i < n; i++) 
-    { 
-        printf("%d\n",arr[i]);
-    }
-
+	 end=clock();			
+      
+    printf("\n\n\nSorted Array:\n");
+    for (i=0; i < n; i++)
+    {
+      printf("%d\t",arr[i]);
+    }  
+      
+   
+    timetaken=((double)(end-start))/CLOCKS_PER_SEC;
+    printf("\ntime taken = %f",timetaken);
     return 0;
 }
+
