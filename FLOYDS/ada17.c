@@ -18,7 +18,7 @@ int min(int a,int b)
  else
   return(b);
 }
-void main()
+int main()
 {
  int p[10][10],w,n,e,u,v,i,j;;
  printf("\n Enter the number of vertices:");
@@ -28,7 +28,7 @@ void main()
  for(i=1;i<=n;i++)
  {
   for(j=1;j<=n;j++)
-   p[i][j]=999;//infinity
+   p[i][j]=999;
  }
  for(i=1;i<=e;i++)
  {
@@ -58,4 +58,5 @@ void main()
    if(i!=j)
     printf("\n <%d,%d>=%d",i,j,p[i][j]);
   }
+ return 0;
 }
